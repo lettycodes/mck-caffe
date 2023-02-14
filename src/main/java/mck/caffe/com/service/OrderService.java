@@ -46,7 +46,7 @@ public class OrderService {
 	private void updateData(Order entity, Order obj) {
 		entity.setId(obj.getId());
 		entity.setOrderStatus(obj.getOrderStatus());
-		entity.setClientName(obj.getClientName());
+		entity.setCustomer(obj.getCustomer());
 	}
 	
 	public void delete(Long id) {

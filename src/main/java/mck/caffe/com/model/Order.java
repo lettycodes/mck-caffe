@@ -1,12 +1,16 @@
 package mck.caffe.com.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import mck.caffe.com.model.enums.OrderStatus;
 
 @Entity
 @Table(name = "tb_order")
@@ -17,9 +21,22 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String customer;
+	
 	private Integer orderStatus;
 	
-	private String clientName;
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
+	
+	public Order() {
+	}
+
+	public Order(Long id, String customer, OrderStatus orderStatus) {
+		super();
+		this.id = id;
+		this.customer = customer;
+		setOrderStatus(orderStatus);
+	}
 
 	public Long getId() {
 		return id;
@@ -29,20 +46,60 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getOrderStatus() {
-		return orderStatus;
+	
+	public String getCustomer() {
+		return customer;
 	}
 
-	public void setOrderStatus(Integer orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setCustomer(String customer) {
+		this.customer = customer;
 	}
 
-	public String getClientName() {
-		return clientName;
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
 	}
 
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
+	}
+
+	public Set<OrderItem> getItems() {
+		return items;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }
