@@ -24,9 +24,6 @@ public class Products {
 	@NotBlank
 	private String description;
 	
-	@NotBlank
-	private String category;
-	
 	@NotNull
 	private float price;
 	
@@ -53,14 +50,6 @@ public class Products {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public float getPrice() {
