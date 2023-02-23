@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import mck.caffe.com.model.Order;
 import mck.caffe.com.model.Products;
 
@@ -11,13 +12,13 @@ import mck.caffe.com.model.Products;
 public class OrderItemPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-
+	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-
+	@ManyToOne
 	@JoinColumn(name = "product_id")
-	private Products products;
+	private Products product;
 
 	public Order getOrder() {
 		return order;
@@ -26,10 +27,10 @@ public class OrderItemPK implements Serializable {
 		this.order = order;
 	}
 	public Products getProducts() {
-		return products;
+		return product;
 	}
-	public void setProducts(Products products) {
-		this.products = products;
+	public void setProducts(Products product) {
+		this.product = product;
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class OrderItemPK implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((order == null) ? 0 : order.hashCode());
-		result = prime * result + ((products == null) ? 0 : products.hashCode());
+		result = prime * result + ((product == null) ? 0 : product.hashCode());
 		return result;
 	}
 
@@ -55,10 +56,10 @@ public class OrderItemPK implements Serializable {
 				return false;
 		} else if (!order.equals(other.order))
 			return false;
-		if (products == null) {
-			if (other.products != null)
+		if (product == null) {
+			if (other.product != null)
 				return false;
-		} else if (!products.equals(other.products))
+		} else if (!product.equals(other.product))
 			return false;
 		return true;
 	}

@@ -2,7 +2,6 @@ package mck.caffe.com.model;
 
 import java.io.Serializable;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
@@ -19,7 +18,11 @@ public class OrderItem implements Serializable {
 	private OrderItemPK id = new OrderItemPK();
 
 	private Integer quantity;
+	
 	private Double price;
+
+	public OrderItem() {
+	}
 
 	public OrderItem(Order order, Products products, Integer quantity, Double price) {
 		super();
@@ -42,7 +45,7 @@ public class OrderItem implements Serializable {
 		return id.getProducts();
 	}
 
-	public void setProducts(Products products) {
+	public void setProduct(Products products) {
 		id.setProducts(products);
 	}
 

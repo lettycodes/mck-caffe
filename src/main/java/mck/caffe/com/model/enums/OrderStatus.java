@@ -1,12 +1,13 @@
 package mck.caffe.com.model.enums;
 
-public class OrderStatus {
-	OPEN(1),
-	CLOSED(2),
+public enum OrderStatus {
+	
+	WAITING_PAYMENT(1),
+	PAID(2),
 	SHIPPED(3),
 	DELIVERED(4),
 	CANCELED(5);
-	
+
 	private int code;
 
 	private OrderStatus(int code) {
@@ -25,4 +26,5 @@ public class OrderStatus {
 		}
 		throw new IllegalArgumentException("Invalid OrderStatus code");
 	}
+
 }

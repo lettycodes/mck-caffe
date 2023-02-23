@@ -9,7 +9,7 @@ import mck.caffe.com.model.Address;
 import mck.caffe.com.service.ViaCepService;
 
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/address")
 public class AddressController {
 
 	@GetMapping()
